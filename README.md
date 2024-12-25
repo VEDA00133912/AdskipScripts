@@ -9,5 +9,5 @@ Tverのブラウザ版で広告が表示されたときに自動で検知して1
 速度変更の部分↓
 
 ```javascript
-setInterval(monitorPlaybackRate, 100);
+const velocity = 100;
 ```
