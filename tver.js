@@ -1,8 +1,9 @@
-function monitorPlaybackRate() {
+function adAccelerate() {
     const controller = [...document.querySelectorAll('div')]
         .find(div => div.className.includes('controller_container__'));
     if (!controller) return console.error('controller_containerが見つかりません');
 
+    const velocity = 100;
     const speed = controller.style.getPropertyValue('--seek-bar-color') === '#ffd647' ? 16 : 1;
     document.querySelectorAll('video').forEach(video => {
         if (video.playbackRate !== speed) {
@@ -12,4 +13,4 @@ function monitorPlaybackRate() {
     });
 }
 
-setInterval(monitorPlaybackRate, 100);
+setInterval(adAccelerate, velocity);
