@@ -1,5 +1,5 @@
 let isAdPlaying = false; 
-let velocity = 1000; 
+let velocity = 500; 
 
 function setPlaybackRate(rate) {
   const video = document.querySelector('video');
@@ -10,7 +10,7 @@ function setPlaybackRate(rate) {
 }
 
 function checkAd() {
-  const adElement = document.querySelector('div.ytp-ad-avatar-lockup-card.ytp-ad-component--clickable');
+  const adElement = document.querySelector('.ad-simple-attributed-string.ytp-ad-badge__text--clean-player.ytp-ad-badge__text--clean-player-with-light-shadow');
 
   if (adElement && !isAdPlaying) {
     console.log('広告が開始しました。16倍速に設定します');
