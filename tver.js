@@ -1,17 +1,23 @@
-const velocity = 100;
+let lastTime = null;
 
-function adAccelerate() {
-    const controller = [...document.querySelectorAll('div')]
-        .find(div => div.className.includes('controller_container__'));
-    if (!controller) return console.error('× controller_containerが見つかりません');
+function adSetStartPosition() {
+    const controller = [...document.querySelectorAll('div')].find(div => div.className.includes('controller_container__'));
+    if (!controller) return;
 
-    const speed = controller.style.getPropertyValue('--seek-bar-color') === '#ffd647' ? 16 : 1;
+    const seekBarColor = controller.style.getPropertyValue('--seek-bar-color');
+    
     document.querySelectorAll('video').forEach(video => {
-        if (video.playbackRate !== speed) {
-            video.playbackRate = speed;
-            console.log(`${speed}xに変更しました`);
+        if (seekBarColor === '#ffd647' && video.currentTime !== 999) {
+            lastTime = video.currentTime;
+            video.currentTime = 999;
+            console.log(`開始位置を999に変更しました`);
+        } else if (lastTime !== null && video.currentTime !== lastTime) {
+            video.currentTime = lastTime;
+            console.log(`開始位置を記録された秒数(${lastTime})に戻しました`);
         }
     });
+
+    if (seekBarColor !== '#ffd647') lastTime = null;
 }
 
-setInterval(adAccelerate, velocity);
+new MutationObserver(adSetStartPosition).observe(document.body, { childList: true, subtree: true, attributes: true });
